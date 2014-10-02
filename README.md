@@ -1,7 +1,7 @@
-Tbs-Log
+Tbs\Log
 =======
 
-Tbs\Log - Loggin for PHP 5.3+
+Amazing log component for PHP 5.3+
 
 Log Levels
 ----------
