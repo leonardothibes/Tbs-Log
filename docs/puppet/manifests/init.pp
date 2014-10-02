@@ -15,8 +15,8 @@ class external
 	class {'php':
 		modules => ['xdebug'],
 		extra   => [
-			's3cmd','composer','phing','phpunit','phpdoc',
-			'phpcs','phpdepend','phpmd','phpcpd','phpdcd',
+			'composer','phing','phpunit','phpdoc','phpcs',
+			'phpdepend','phpmd','phpcpd','phpdcd',
 		],
 	}
 }
