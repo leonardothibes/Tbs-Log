@@ -4,6 +4,7 @@ namespace Tbs;
 
 use \Tbs\Log\Interfaces\LoggerInterface;
 use \Tbs\Log\Interfaces\LoggerAwareInterface;
+use \Tbs\Log\LogException;
 
 /**
  * Logger frontend class.
@@ -43,7 +44,7 @@ class Log implements LoggerAwareInterface
      */
     protected function __construct()
     {
-        //Do nothing...yet
+        //Do nothing.
     }
 
     /**
@@ -85,13 +86,13 @@ class Log implements LoggerAwareInterface
      * @param array  $args
      *
      * @return mixed
-     * @throws \Tbs\Log\Exception
+     * @throws LogException
      */
     public static function __callStatic($method, $args = array())
     {
         $logger = self::getInstance()->getLogger();
         if (is_null($logger)) {
-            throw new \Tbs\Log\Exception('The logger object is not set');
+            throw new LogException('The logger object is not set');
         }
         $reflection = new \ReflectionObject($logger);
         return $reflection->getMethod($method)->invokeArgs($logger, $args);

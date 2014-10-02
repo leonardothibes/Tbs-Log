@@ -2,7 +2,7 @@
 
 namespace Tbs\Log;
 
-use \Tbs\Log\Abstraction as A;
+use \Tbs\Log\LogAbstract;
 use \Tbs\Log\File\LogFileException;
 
 /**
@@ -13,7 +13,7 @@ use \Tbs\Log\File\LogFileException;
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>
  */
-class File extends A
+class File extends LogAbstract
 {
     /**
      * Log file.

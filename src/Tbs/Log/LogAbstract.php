@@ -13,7 +13,7 @@ use \Tbs\Log\LogLevel;
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>
  */
-abstract class Abstraction implements LoggerInterface
+abstract class LogAbstract implements LoggerInterface
 {
     /**
      * System is unusable.
