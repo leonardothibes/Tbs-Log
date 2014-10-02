@@ -13,10 +13,8 @@ use \Tbs\Log\LogLevel as Level;
 require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
 /**
- * @category Tests
- * @package Tbs
- * @subpackage Log
- * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @package Tbs\Log
+ * @author Leonardo Thibes <leonardothibes@gmail.com>
  * @copyright Copyright (c) The Authors
  */
 class FileTest extends \PHPUnit_Framework_TestCase
