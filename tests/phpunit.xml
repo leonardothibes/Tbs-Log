@@ -12,14 +12,13 @@
          colors                      = "true"
 >
     
-    <testsuite name="Tbs Bundle Test Suite">
+    <testsuite name="Tbs Log Test Suite">
         <directory>./Tbs</directory>
     </testsuite>
     
     <filter>
         <blacklist>
         	<directory suffix=".php">../vendor/</directory>
-        	<directory suffix=".php">/usr/share/ZendFramework</directory>
         </blacklist>	
     </filter>
     
