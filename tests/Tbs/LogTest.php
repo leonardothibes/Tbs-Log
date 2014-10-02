@@ -1,25 +1,12 @@
 <?php
-/**
- * @category Tests
- * @package Tbs
- * @subpackage Version
- * @author Leonardo Thibes <eu@leonardothibes.com>
- * @copyright Copyright (c) The Authors
- */
 
 namespace Tbs;
+
 use \Tbs\Log          as log;
 use \Tbs\Log\File     as file;
 use \Tbs\Log\LogLevel as Level;
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
-/**
- * @category Tests
- * @package Tbs
- * @subpackage Version
- * @author Leonardo Thibes <eu@leonardothibes.com>
- * @copyright Copyright (c) The Authors
- */
 class LogTest extends \PHPUnit_Framework_TestCase
 {
     /**
