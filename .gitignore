@@ -1,0 +1,14 @@
+Thumbs.db
+.DS_Store
+.buildpath
+.project
+.vagrant
+.settings
+.idea
+*.db
+*.bak
+*.swp
+bin/*
+logs/*
+build/*
+vendor/*
