@@ -3,6 +3,7 @@
 namespace Tbs\Log;
 
 use \Tbs\Log\Abstraction as A;
+use \Tbs\Log\File\LogFileException;
 
 /**
  * Class of log in disc file.
@@ -26,17 +27,19 @@ class File extends A
      * @param string $logfile
      * @param int    $mode
      *
-     * @throws \Tbs\Log\File\Exception
+     * @throws LogException
+     * @throws LogFileException
      */
     public function __construct($logfile, $mode = 0777)
     {
         if (!strlen($logfile)) {
-            throw new \Tbs\Log\File\Exception('Log file could not be blank');
+            throw new LogFileException('Log file could not be blank');
         }
 
         $logdir = dirname($logfile);
         if (!is_dir($logdir) or !is_writable($logdir)) {
             $message = sprintf('No write access to the log directory: %s', $logdir);
+            throw new LogException($message);
         }
 
         if (!file_exists($logfile)) {

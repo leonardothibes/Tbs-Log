@@ -2,8 +2,6 @@
 
 namespace Tbs\Log;
 
-use \Tbs\Exception as E;
-
 /**
  * Log Exception Class.
  *
@@ -11,6 +9,6 @@ use \Tbs\Exception as E;
  * @author Leonardo Thibes <leonardothibes@gmail.com>
  * @copyright Copyright (c) The Authors
  */
-class Exception extends E
+class LogException extends \Exception
 {
 }

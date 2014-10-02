@@ -2,7 +2,7 @@
 
 namespace Tbs\Log\File;
 
-use \Tbs\Log\Exception as E;
+use \Tbs\Log\LogException;
 
 /**
  * Log Exception Class.
@@ -11,6 +11,6 @@ use \Tbs\Log\Exception as E;
  * @author Leonardo Thibes <leonardothibes@gmail.com>
  * @copyright Copyright (c) The Authors
  */
-class Exception extends E
+class LogFileException extends LogException
 {
 }
