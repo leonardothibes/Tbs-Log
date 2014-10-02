@@ -13,7 +13,7 @@ use \Tbs\Log\File\LogFileException;
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>
  */
-class LogFile extends LogAbstract
+class File extends LogAbstract
 {
     /**
      * Log file.
