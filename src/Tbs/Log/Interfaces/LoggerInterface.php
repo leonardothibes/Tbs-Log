@@ -1,9 +1,4 @@
 <?php
-/**
- * @package Tbs\Log\Interfaces
- * @author Leonardo Thibes <eu@leonardothibes.com>
- * @copyright Copyright (c) The Authors
- */
 
 namespace Tbs\Log\Interfaces;
 
@@ -22,8 +17,8 @@ namespace Tbs\Log\Interfaces;
  * See <https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md>
  * for the full interface specification.
  *
- * @package Tbs\Log\Interfaces
- * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @package Tbs\Log
+ * @author Leonardo Thibes <leonardothibes@gmail.com>
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>
  */

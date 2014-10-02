@@ -1,11 +1,4 @@
 <?php
-/**
- * @category Library
- * @package Tbs
- * @subpackage Log
- * @author Leonardo Thibes <eu@leonardothibes.com>
- * @copyright Copyright (c) The Authors
- */
 
 namespace Tbs;
 
@@ -15,10 +8,8 @@ use \Tbs\Log\Interfaces\LoggerAwareInterface;
 /**
  * Logger frontend class.
  *
- * @category Library
- * @package Tbs
- * @subpackage Log
- * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @package Tbs\Log
+ * @author Leonardo Thibes <leonardothibes@gmail.com>
  * @copyright Copyright (c) The Authors
  */
 class Log implements LoggerAwareInterface

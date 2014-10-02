@@ -1,9 +1,4 @@
 <?php
-/**
- * @package Tbs\Log
- * @author Leonardo Thibes <eu@leonardothibes.com>
- * @copyright Copyright (c) The Authors
- */
 
 namespace Tbs\Log;
 
@@ -14,7 +9,7 @@ use \Tbs\Log\LogLevel;
  * Abstract methods of log.
  *
  * @package Tbs\Log
- * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @author Leonardo Thibes <leonardothibes@gmail.com>
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>
  */
