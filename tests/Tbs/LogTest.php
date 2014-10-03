@@ -94,11 +94,11 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     public function testResetInstance()
     {
-        log::getInstance()->resetInstance();
+        Log::getInstance()->resetInstance();
         $rs = $this->object->getLogger();
         $this->assertNull($rs);
 
-        $rs = log::getInstance()->resetInstance()->getLogger();
+        $rs = Log::getInstance()->resetInstance()->getLogger();
         $this->assertNull($rs);
     }
 
@@ -109,7 +109,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function testLogOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-        log::log($level, $message);
+        Log::log($level, $message);
 
         $rs = file_get_contents($this->logfile);
         $this->assertEquals($line, $rs);
@@ -122,7 +122,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function testLogLevelOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-        log::$level($message);
+        Log::$level($message);
 
         $rs = file_get_contents($this->logfile);
         $this->assertEquals($line, $rs);
@@ -137,7 +137,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $total = rand(5,10);
         for ($i = 1; $i <= $total; $i++) {
             $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-            log::log($level, $message . "($i)");
+            Log::log($level, $message . "($i)");
         }
 
         $rs    = file_get_contents($this->logfile);
@@ -161,7 +161,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $total = rand(5,10);
         for ($i = 1; $i <= $total; $i++) {
             $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-            log::$level($message . "($i)");
+            Log::$level($message . "($i)");
         }
 
         $rs    = file_get_contents($this->logfile);
@@ -190,7 +190,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag3' => 'this is a tag3 context',
         );
 
-        log::log($level, $message, $context);
+        Log::log($level, $message, $context);
         $rs = file_get_contents($this->logfile);
 
         $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
@@ -213,7 +213,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag3' => 'this is a tag3 context',
         );
 
-        log::$level($message, $context);
+        Log::$level($message, $context);
         $rs = file_get_contents($this->logfile);
 
         $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
@@ -233,7 +233,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'id2' => $message . '(2)',
             'id3' => $message . '(3)',
         );
-        log::log($level, $array);
+        Log::log($level, $array);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -260,7 +260,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'id2' => $message . '(2)',
             'id3' => $message . '(3)',
         );
-        log::$level($array);
+        Log::$level($array);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -292,7 +292,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag2' => 'tag 2 content',
             'tag3' => 'tag 3 content',
         );
-        log::log($level, $array, $context);
+        Log::log($level, $array, $context);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -324,7 +324,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag2' => 'tag 2 content',
             'tag3' => 'tag 3 content',
         );
-        log::$level($array, $context);
+        Log::$level($array, $context);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
