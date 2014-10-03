@@ -1,16 +1,9 @@
 <?php
-/**
- * @category Tests
- * @package Tbs
- * @subpackage Log
- * @author Leonardo Thibes <eu@leonardothibes.com>
- * @copyright Copyright (c) The Authors
- */
 
 namespace Tbs\Log;
-use \Tbs\Log\File     as Log;
-use \Tbs\Log\LogLevel as Level;
-require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
+use \Tbs\Log\File     as LogFile;
+use \Tbs\Log\LogLevel as LogLevel;
+require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 /**
  * @package Tbs\Log
@@ -35,7 +28,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->logfile = sprintf('%s/test.log', STUFF_PATH);
-    	$this->object  = new Log($this->logfile);
+    	$this->object  = new LogFile($this->logfile);
     }
 
     /**
@@ -88,14 +81,14 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function providerLogMessages()
     {
         return array(
-        	array('this is a log message', Level::EMERGENCY),
-            array('this is a log message', Level::ALERT),
-            array('this is a log message', Level::CRITICAL),
-            array('this is a log message', Level::ERROR),
-            array('this is a log message', Level::WARNING),
-            array('this is a log message', Level::NOTICE),
-            array('this is a log message', Level::INFO),
-            array('this is a log message', Level::DEBUG),
+        	array('this is a log message', LogLevel::EMERGENCY),
+            array('this is a log message', LogLevel::ALERT),
+            array('this is a log message', LogLevel::CRITICAL),
+            array('this is a log message', LogLevel::ERROR),
+            array('this is a log message', LogLevel::WARNING),
+            array('this is a log message', LogLevel::NOTICE),
+            array('this is a log message', LogLevel::INFO),
+            array('this is a log message', LogLevel::DEBUG),
         );
     }
 

@@ -2,10 +2,11 @@
 
 namespace Tbs;
 
-use \Tbs\Log          as log;
-use \Tbs\Log\File     as file;
-use \Tbs\Log\LogLevel as Level;
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
+use \Tbs\Log;
+use \Tbs\Log\File;
+use \Tbs\Log\LogLevel;
+
+require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 /**
  * @package Tbs\Log
@@ -15,7 +16,7 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 class LogTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Tbs\Log
+     * @var Log
      */
     protected $object = null;
 
@@ -29,10 +30,10 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        log::getInstance()->resetInstance();
+        Log::getInstance()->resetInstance();
         $this->logfile = sprintf('%s/test.log', STUFF_PATH);
-    	$this->object  = log::getInstance()->setLogger(
-    	    new file($this->logfile)
+    	$this->object  = Log::getInstance()->setLogger(
+    	    new File($this->logfile)
         );
     }
 
@@ -41,7 +42,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        log::getInstance()->resetInstance();
+        Log::getInstance()->resetInstance();
         @unlink($this->logfile);
     	unset($this->object);
     }
@@ -53,14 +54,14 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function providerLogMessages()
     {
         return array(
-            array('this is a log message', Level::EMERGENCY),
-            array('this is a log message', Level::ALERT),
-            array('this is a log message', Level::CRITICAL),
-            array('this is a log message', Level::ERROR),
-            array('this is a log message', Level::WARNING),
-            array('this is a log message', Level::NOTICE),
-            array('this is a log message', Level::INFO),
-            array('this is a log message', Level::DEBUG),
+            array('this is a log message', LogLevel::EMERGENCY),
+            array('this is a log message', LogLevel::ALERT),
+            array('this is a log message', LogLevel::CRITICAL),
+            array('this is a log message', LogLevel::ERROR),
+            array('this is a log message', LogLevel::WARNING),
+            array('this is a log message', LogLevel::NOTICE),
+            array('this is a log message', LogLevel::INFO),
+            array('this is a log message', LogLevel::DEBUG),
         );
     }
 
@@ -93,11 +94,11 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     public function testResetInstance()
     {
-        log::getInstance()->resetInstance();
+        Log::getInstance()->resetInstance();
         $rs = $this->object->getLogger();
         $this->assertNull($rs);
 
-        $rs = log::getInstance()->resetInstance()->getLogger();
+        $rs = Log::getInstance()->resetInstance()->getLogger();
         $this->assertNull($rs);
     }
 
@@ -108,7 +109,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function testLogOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-        log::log($level, $message);
+        Log::log($level, $message);
 
         $rs = file_get_contents($this->logfile);
         $this->assertEquals($line, $rs);
@@ -121,7 +122,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function testLogLevelOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-        log::$level($message);
+        Log::$level($message);
 
         $rs = file_get_contents($this->logfile);
         $this->assertEquals($line, $rs);
@@ -136,7 +137,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $total = rand(5,10);
         for ($i = 1; $i <= $total; $i++) {
             $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-            log::log($level, $message . "($i)");
+            Log::log($level, $message . "($i)");
         }
 
         $rs    = file_get_contents($this->logfile);
@@ -160,7 +161,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $total = rand(5,10);
         for ($i = 1; $i <= $total; $i++) {
             $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-            log::$level($message . "($i)");
+            Log::$level($message . "($i)");
         }
 
         $rs    = file_get_contents($this->logfile);
@@ -189,7 +190,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag3' => 'this is a tag3 context',
         );
 
-        log::log($level, $message, $context);
+        Log::log($level, $message, $context);
         $rs = file_get_contents($this->logfile);
 
         $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
@@ -212,7 +213,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag3' => 'this is a tag3 context',
         );
 
-        log::$level($message, $context);
+        Log::$level($message, $context);
         $rs = file_get_contents($this->logfile);
 
         $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
@@ -232,7 +233,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'id2' => $message . '(2)',
             'id3' => $message . '(3)',
         );
-        log::log($level, $array);
+        Log::log($level, $array);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -259,7 +260,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'id2' => $message . '(2)',
             'id3' => $message . '(3)',
         );
-        log::$level($array);
+        Log::$level($array);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -291,7 +292,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag2' => 'tag 2 content',
             'tag3' => 'tag 3 content',
         );
-        log::log($level, $array, $context);
+        Log::log($level, $array, $context);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -323,7 +324,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag2' => 'tag 2 content',
             'tag3' => 'tag 3 content',
         );
-        log::$level($array, $context);
+        Log::$level($array, $context);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -342,22 +343,22 @@ class LogTest extends \PHPUnit_Framework_TestCase
     /**
      * @see \Tbs\Log:__callStatic()
      * @dataProvider providerLogMessages
-     * @expectedException \Tbs\Log\Exception
+     * @expectedException \Tbs\Log\LogException
      */
     public function test__callStaticException($message, $level)
     {
-        log::getInstance()->resetInstance();
-        log::log($level, $message);
+        Log::getInstance()->resetInstance();
+        Log::log($level, $message);
     }
 
     /**
      * @see \Tbs\Log:__callStatic()
      * @dataProvider providerLogMessages
-     * @expectedException \Tbs\Log\Exception
+     * @expectedException \Tbs\Log\LogException
      */
     public function test__callStaticLevelException($message, $level)
     {
-        log::getInstance()->resetInstance();
-        log::$level($message);
+        Log::getInstance()->resetInstance();
+        Log::$level($message);
     }
 }
