@@ -2,8 +2,8 @@ Thumbs.db
 .DS_Store
 .buildpath
 .project
-.vagrant
 .settings
+.vagrant
 .idea
 *.db
 *.bak
