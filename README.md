@@ -1,4 +1,4 @@
-Tbs\Log
+Tbs\Log [![Build Status](https://secure.travis-ci.org/leonardothibes/Tbs-Log.png)](http://travis-ci.org/leonardothibes/Tbs-Log)
 =======
 
 Amazing log component for PHP 5.3+
