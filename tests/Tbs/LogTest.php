@@ -2,10 +2,11 @@
 
 namespace Tbs;
 
-use \Tbs\Log          as log;
-use \Tbs\Log\File     as file;
-use \Tbs\Log\LogLevel as Level;
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
+use \Tbs\Log;
+use \Tbs\Log\File;
+use \Tbs\Log\LogLevel;
+
+require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 /**
  * @package Tbs\Log
@@ -15,7 +16,7 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 class LogTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Tbs\Log
+     * @var Log
      */
     protected $object = null;
 
@@ -29,10 +30,10 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        log::getInstance()->resetInstance();
+        Log::getInstance()->resetInstance();
         $this->logfile = sprintf('%s/test.log', STUFF_PATH);
-    	$this->object  = log::getInstance()->setLogger(
-    	    new file($this->logfile)
+    	$this->object  = Log::getInstance()->setLogger(
+    	    new File($this->logfile)
         );
     }
 
@@ -41,7 +42,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        log::getInstance()->resetInstance();
+        Log::getInstance()->resetInstance();
         @unlink($this->logfile);
     	unset($this->object);
     }
@@ -53,14 +54,14 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function providerLogMessages()
     {
         return array(
-            array('this is a log message', Level::EMERGENCY),
-            array('this is a log message', Level::ALERT),
-            array('this is a log message', Level::CRITICAL),
-            array('this is a log message', Level::ERROR),
-            array('this is a log message', Level::WARNING),
-            array('this is a log message', Level::NOTICE),
-            array('this is a log message', Level::INFO),
-            array('this is a log message', Level::DEBUG),
+            array('this is a log message', LogLevel::EMERGENCY),
+            array('this is a log message', LogLevel::ALERT),
+            array('this is a log message', LogLevel::CRITICAL),
+            array('this is a log message', LogLevel::ERROR),
+            array('this is a log message', LogLevel::WARNING),
+            array('this is a log message', LogLevel::NOTICE),
+            array('this is a log message', LogLevel::INFO),
+            array('this is a log message', LogLevel::DEBUG),
         );
     }
 
@@ -342,22 +343,22 @@ class LogTest extends \PHPUnit_Framework_TestCase
     /**
      * @see \Tbs\Log:__callStatic()
      * @dataProvider providerLogMessages
-     * @expectedException \Tbs\Log\Exception
+     * @expectedException \Tbs\Log\LogException
      */
     public function test__callStaticException($message, $level)
     {
-        log::getInstance()->resetInstance();
-        log::log($level, $message);
+        Log::getInstance()->resetInstance();
+        Log::log($level, $message);
     }
 
     /**
      * @see \Tbs\Log:__callStatic()
      * @dataProvider providerLogMessages
-     * @expectedException \Tbs\Log\Exception
+     * @expectedException \Tbs\Log\LogException
      */
     public function test__callStaticLevelException($message, $level)
     {
-        log::getInstance()->resetInstance();
-        log::$level($message);
+        Log::getInstance()->resetInstance();
+        Log::$level($message);
     }
 }
