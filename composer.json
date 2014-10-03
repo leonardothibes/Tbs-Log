@@ -1,0 +1,20 @@
+{
+    "name"       : "tbs/log",
+    "type"       : "library",
+    "description": "Amazing log component for PHP 5.3+",
+    "keywords"   : ["tbs","log"],
+    "homepage"   : "http://documentup.com/leonardothibes/Tbs-Log",
+    "license"    : "MIT",
+    "authors": [
+        {
+            "name" : "Leonardo Thibes",
+            "email": "leonardothibes@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}
