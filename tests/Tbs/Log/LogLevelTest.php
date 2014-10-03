@@ -9,7 +9,7 @@
 
 namespace Tbs\Log;
 use \Tbs\Log\LogLevel;
-require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
+require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 /**
  * @package Tbs\Log
