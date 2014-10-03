@@ -14,6 +14,9 @@
     "require": {
         "php": ">=5.3"
     },
+    "require-dev": {
+        "phing/phing": ">=2.5@stable"
+    },
     "autoload": {
         "psr-0": {"": "src/"}
     }
