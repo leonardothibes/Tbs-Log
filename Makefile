@@ -94,7 +94,10 @@ phpdcd:
 phpdoc:
 
 documentup:
-
+	@echo Recompiling online documentation on ${DOCUMENTUP}
+	@curl -X GET ${DOCUMENTUP}/recompile > /dev/null 2> /dev/null
+	@echo "Done!"
+	
 docs:
 
 .clear:
