@@ -50,7 +50,10 @@ clean-all:
 	fi; \
 
 install: .clear .composer
-	@php ${BIN}/composer.phar install
+	@php ${BIN}/composer.phar install --no-dev
+
+install-dev: .clear .composer
+	@php ${BIN}/composer.phar install --dev
 
 classmap:
 	@php ${BIN}/composer.phar dump-autoload
