@@ -52,6 +52,9 @@ clean-all:
 install: .clear .composer
 	@php ${BIN}/composer.phar install
 
+classmap:
+	@php ${BIN}/composer.phar dump-autoload
+
 lint:
 
 test:
