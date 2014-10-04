@@ -56,7 +56,7 @@ clean-all:
 install: .clear .composer
 	@php ${BIN}/composer.phar install --no-dev
 
-install-dev: .clear .composer
+install-dev: .clear .composer .phpDocumentor
 	@php ${BIN}/composer.phar install --dev
 
 classmap:
@@ -90,7 +90,7 @@ code-sniffer: .clear
 	@${PHPCS} --standard=${STANDARD} ${SRC}
 	@echo " - No code standsrds violation detected"
 
-pdepend:
+pdepend: .clear
 	@echo phpdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
 
 phpmd:
@@ -99,7 +99,13 @@ phpcpd:
 
 phpdcd:
 
-phpdoc:
+.phpDocumentor:
+	@[ -f ${BIN}/phpDocumentor.phar ] || curl http://phpdoc.org/phpDocumentor.phar -o ${BIN}/phpDocumentor.phar
+	@[ -f ${BIN}/phpDocumentor.phar ] && chmod 755 ${BIN}/phpDocumentor.phar
+
+phpdoc: rw .clear .phpDocumentor
+	@php ${BIN}/phpDocumentor.phar -d ${SRC} -t ${BUILD}/apidoc 1> /dev/null 2> /dev/null
+	@echo " - API documentation generated!"
 
 documentup:
 	@echo " - Recompiling online documentation on ${DOCUMENTUP}"
