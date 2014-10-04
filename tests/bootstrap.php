@@ -6,7 +6,7 @@ define('STUFF_PATH', dirname(__FILE__) . '/Tbs/.stuff');
 
 set_include_path(implode(PATH_SEPARATOR, array(
 	LIBRARY_PATH,
-	get_include_path(),
+	//get_include_path(),
 )));
 
 require_once LIBRARY_PATH . '/../vendor/autoload.php';
