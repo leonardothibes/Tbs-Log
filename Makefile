@@ -24,7 +24,7 @@ URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze documentup
+build: .clear .title lint code-sniffer test-analyze phpdoc documentup
 	@echo ""
 	@echo " - BUILD SUCCESS!"
 	@echo ""
@@ -56,7 +56,7 @@ clean-all:
 install: .clear .composer
 	@php ${BIN}/composer.phar install --no-dev
 
-install-dev: .clear .composer .phpDocumentor
+install-dev: rw .clear .composer .phpDocumentor
 	@php ${BIN}/composer.phar install --dev
 
 classmap:
