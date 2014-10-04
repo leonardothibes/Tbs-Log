@@ -6,25 +6,25 @@
 #
 
 # General Configuration
-NAME          = "Tbs\\Log"
-CODE-STANDARD = "PSR2"
-DATE          = `date "+%Y-%m-%d"`
-BASEDIR       = `pwd`
-BIN           = "${BASEDIR}/bin"
-SRC           = "${BASEDIR}/src"
-DOCS          = "${BASEDIR}/docs"
-BUILD         = "${BASEDIR}/build"
-TESTS         = "${BASEDIR}/tests"
-VENDOR        = "${BASEDIR}/vendor"
-LOGS          = "${BASEDIR}/logs"
-LOGFILE       = "${LOGS}/debug_${DATE}.log"
-PHPUNIT       = "${BIN}/phpunit"
-PHPCS         = "${BIN}/phpcs"
-URI           = "leonardothibes/Tbs-Log"
-DOCUMENTUP    = "http://documentup.com/${URI}"
-GITHUB        = "http://github.com/${URI}"
+NAME       = "Tbs\\Log"
+STANDARD   = "PSR2"
+DATE       = `date "+%Y-%m-%d"`
+BASEDIR    = `pwd`
+BIN        = "${BASEDIR}/bin"
+SRC        = "${BASEDIR}/src"
+DOCS       = "${BASEDIR}/docs"
+BUILD      = "${BASEDIR}/build"
+TESTS      = "${BASEDIR}/tests"
+VENDOR     = "${BASEDIR}/vendor"
+LOGS       = "${BASEDIR}/logs"
+LOGFILE    = "${LOGS}/debug_${DATE}.log"
+PHPUNIT    = "${BIN}/phpunit"
+PHPCS      = "${BIN}/phpcs"
+URI        = "leonardothibes/Tbs-Log"
+DOCUMENTUP = "http://documentup.com/${URI}"
+GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint test-analyze
+build: .clear .title lint code-sniffer test-analyze
 
 rw:
 	@[ -d ${BUILD}   ] || mkdir ${BUILD}
@@ -68,7 +68,7 @@ lint: .clear
 			exit 1; \
 		fi; \
 	done;
-	@echo "No syntax errors detected"
+	@echo " - No syntax errors detected"
 	
 test: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
@@ -79,7 +79,9 @@ testdox: rw
 test-analyze: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox-html=${BUILD}/testdox.html --coverage-html=${BUILD}/coverage ${TESTS}
 
-code-sniffer:
+code-sniffer: .clear
+	@${PHPCS} --standard=${STANDARD} ${SRC}
+	@echo " - No code standsrds violation detected"
 
 pdepend:
 
