@@ -59,7 +59,18 @@ classmap:
 	@php ${BIN}/composer.phar dump-autoload
 
 lint:
-
+	@echo ""
+	@for file in `find ./src` ; do \
+		results=`php -l $$file`; \
+		if [ "$$results" != "No syntax errors detected in $$file" ]; then \
+			echo $$results; \
+			echo ""; \
+			exit 1; \
+		fi; \
+	done;
+	@echo "  No syntax errors detected"
+	@echo ""
+	
 test:
 
 testdox:
