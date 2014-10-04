@@ -7,25 +7,32 @@
 
 # General Configuration
 NAME          = "Tbs\\Log"
-BASEDIR       = `pwd`
 CODE-STANDARD = "PSR2"
+DATE          = `date "+%Y-%m-%d"`
+BASEDIR       = `pwd`
 BIN           = "${BASEDIR}/bin"
 SRC           = "${BASEDIR}/src"
 DOCS          = "${BASEDIR}/docs"
-LOGS          = "${BASEDIR}/logs"
 BUILD         = "${BASEDIR}/build"
 TESTS         = "${BASEDIR}/tests"
 VENDOR        = "${BASEDIR}/vendor"
+LOGS          = "${BASEDIR}/logs"
+LOGFILE       = "${LOGS}/debug_${DATE}.log"
 PHPUNIT       = "bin/phpunit -c ${TESTS}/phpunit.xml"
 URI           = "leonardothibes/Tbs-Log"
 DOCUMENTUP    = "http://documentup.com/${URI}"
 GITHUB        = "http://github.com/${URI}"
 
-main: .clear
+build: .clear .title
 
-build: main
+rw: .clear .title
 
-rw:
+	@[ -d ${BUILD} ] || mkdir ${BUILD}
+	@chmod 755 ${BUILD}
+	
+	@[ -d ${LOGS}    ] || mkdir ${LOGS}
+	@[ -f ${LOGFILE} ] || > ${LOGFILE}
+	@chmod -R 777 ${LOGS}
 
 clean:
 	@rm -Rf ${LOGS}/*
@@ -67,13 +74,14 @@ documentup:
 
 docs:
 
-.title:
-	@echo "Makefile - A courtesy of ${NAME}."
-
 .clear:
 	@clear
 
-help: .clear .title
+.title:
+	@echo "Makefile - A courtesy of ${NAME}."
+	@echo ""
+
+help: .clear
 	@echo "Usage: make [options]"
 	@echo ""
 	@echo "  main(default)     General project build"
