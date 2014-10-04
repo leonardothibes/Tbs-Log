@@ -71,7 +71,9 @@ lint:
 	@echo "  No syntax errors detected"
 	@echo ""
 	
-test:
+test: rw
+	@#FIX THE PHPUNIT PATH TO USE A COMPOSER PROVIED PACKAGE
+	@phpunit ${TESTS}
 
 testdox:
 
