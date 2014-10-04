@@ -91,6 +91,7 @@ code-sniffer: .clear
 	@echo " - No code standsrds violation detected"
 
 pdepend:
+	@echo phpdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
 
 phpmd:
 
