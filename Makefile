@@ -19,11 +19,12 @@ VENDOR        = "${BASEDIR}/vendor"
 LOGS          = "${BASEDIR}/logs"
 LOGFILE       = "${LOGS}/debug_${DATE}.log"
 PHPUNIT       = "${BIN}/phpunit"
+PHPCS         = "${BIN}/phpcs"
 URI           = "leonardothibes/Tbs-Log"
 DOCUMENTUP    = "http://documentup.com/${URI}"
 GITHUB        = "http://github.com/${URI}"
 
-build: .clear .title
+build: .clear .title lint test-analyze
 
 rw:
 	@[ -d ${BUILD}   ] || mkdir ${BUILD}
@@ -58,8 +59,7 @@ install-dev: .clear .composer
 classmap:
 	@php ${BIN}/composer.phar dump-autoload
 
-lint:
-	@echo ""
+lint: .clear
 	@for file in `find ./src` ; do \
 		results=`php -l $$file`; \
 		if [ "$$results" != "No syntax errors detected in $$file" ]; then \
@@ -68,8 +68,7 @@ lint:
 			exit 1; \
 		fi; \
 	done;
-	@echo "  No syntax errors detected"
-	@echo ""
+	@echo "No syntax errors detected"
 	
 test: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
@@ -77,7 +76,7 @@ test: .clear rw
 testdox: rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
-test-analyze: rw
+test-analyze: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox-html=${BUILD}/testdox.html --coverage-html=${BUILD}/coverage ${TESTS}
 
 code-sniffer:
