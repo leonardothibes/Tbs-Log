@@ -78,7 +78,7 @@ testdox: rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
 test-analyze: rw
-	@cd ${TESTS} ; ../${PHPUNIT} --testdox-html=${BUILD}/testdox.html --coverage-html=${BUILD}/coverage
+	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox-html=${BUILD}/testdox.html --coverage-html=${BUILD}/coverage ${TESTS}
 
 code-sniffer:
 
