@@ -73,7 +73,7 @@ lint: .clear
 test: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
 
-testdox: rw
+testdox: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
 test-analyze: .clear rw
