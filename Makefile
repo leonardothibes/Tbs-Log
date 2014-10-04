@@ -9,7 +9,7 @@
 NAME          = "Tbs\\Log"
 CODE-STANDARD = "PSR2"
 DATE          = `date "+%Y-%m-%d"`
-BASEDIR       = `pwd`
+BASEDIR       = `dirname .`
 BIN           = "${BASEDIR}/bin"
 SRC           = "${BASEDIR}/src"
 DOCS          = "${BASEDIR}/docs"
@@ -18,14 +18,14 @@ TESTS         = "${BASEDIR}/tests"
 VENDOR        = "${BASEDIR}/vendor"
 LOGS          = "${BASEDIR}/logs"
 LOGFILE       = "${LOGS}/debug_${DATE}.log"
-PHPUNIT       = "bin/phpunit -c ${TESTS}/phpunit.xml"
+PHPUNIT       = "${BIN}/phpunit"
 URI           = "leonardothibes/Tbs-Log"
 DOCUMENTUP    = "http://documentup.com/${URI}"
 GITHUB        = "http://github.com/${URI}"
 
 build: .clear .title
 
-rw: .clear
+rw:
 	@[ -d ${BUILD}   ] || mkdir ${BUILD}
 	@[ -d ${LOGS}    ] || mkdir ${LOGS}
 	@[ -f ${LOGFILE} ] || > ${LOGFILE}
@@ -71,9 +71,8 @@ lint:
 	@echo "  No syntax errors detected"
 	@echo ""
 	
-test: rw
-	@#FIX THE PHPUNIT PATH TO USE A COMPOSER PROVIED PACKAGE
-	@phpunit ${TESTS}
+test: .clear rw
+	@cd ${TESTS} ; ../${PHPUNIT}
 
 testdox:
 
