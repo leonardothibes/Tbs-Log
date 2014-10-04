@@ -19,5 +19,9 @@ before_script:
 script:
   - ./vendor/bin/phing test -verbose
 
+matrix:
+  allow_failures:
+    - php: hhvm
+
 notifications:
   email: false
