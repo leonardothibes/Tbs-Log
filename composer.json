@@ -15,9 +15,16 @@
         "php": ">=5.3"
     },
     "require-dev": {
-        "phing/phing": ">=2.5@stable"
+        "squizlabs/php_codesniffer": ">=1.4@stable",
+        "phpunit/phpunit"          : ">=4.0@stable",
+        "phpunit/php-invoker"      : "*",
+        "phpunit/phpunit-story"    : "*",
+        "sebastian/diff"           : "*"
+    },
+    "config": {
+        "bin-dir": "bin"
     },
     "autoload": {
-        "psr-0": {"": "src/"}
+        "psr-0": {"": "src"}
     }
 }
