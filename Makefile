@@ -30,6 +30,7 @@ build: .clear .title lint code-sniffer test-analyze phpdoc documentup
 	@echo ""
 
 rw:
+	@[ -d ${BIN}     ] || mkdir ${BIN}
 	@[ -d ${BUILD}   ] || mkdir ${BUILD}
 	@[ -d ${LOGS}    ] || mkdir ${LOGS}
 	@[ -f ${LOGFILE} ] || > ${LOGFILE}
@@ -47,16 +48,15 @@ clean-all:
 	@rm -Rf ${LOGS}
 	@rm -Rf ${BIN}
 
-.composer:
-	@[ -d ${BIN} ] || mkdir ${BIN}
+.composer: rw
 	@if [ ! -f ${BIN}/composer.phar ]; then \
 		curl -sS https://getcomposer.org/installer | php -- --install-dir=${BIN}; \
 	fi; \
 
-install: .clear .composer
+install: rw .clear .composer
 	@php ${BIN}/composer.phar install --no-dev
 
-install-dev: rw .clear .composer .phpDocumentor
+install-dev: rw .clear .phpDocumentor .composer
 	@php ${BIN}/composer.phar install --dev
 
 classmap:
