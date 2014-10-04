@@ -25,11 +25,8 @@ GITHUB        = "http://github.com/${URI}"
 
 build: .clear .title
 
-rw: .clear .title
-
-	@[ -d ${BUILD} ] || mkdir ${BUILD}
-	@chmod 755 ${BUILD}
-	
+rw: .clear
+	@[ -d ${BUILD}   ] || mkdir ${BUILD}
 	@[ -d ${LOGS}    ] || mkdir ${LOGS}
 	@[ -f ${LOGFILE} ] || > ${LOGFILE}
 	@chmod -R 777 ${LOGS}
@@ -47,8 +44,12 @@ clean-all:
 	@rm -Rf ${BIN}
 
 .composer:
+	@[ -d ${BIN} ] || mkdir ${BIN}
+	@if [ ! -f ${BIN}/composer.phar ]; then \
+		curl -sS https://getcomposer.org/installer | php -- --install-dir=${BIN}; \
+	fi; \
 
-install: .composer
+install: .clear .composer
 
 lint:
 
