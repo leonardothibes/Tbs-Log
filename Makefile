@@ -24,7 +24,10 @@ URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze
+build: .clear .title lint code-sniffer test-analyze documentup
+	@echo ""
+	@echo " - BUILD SUCCESS!"
+	@echo ""
 
 rw:
 	@[ -d ${BUILD}   ] || mkdir ${BUILD}
@@ -77,7 +80,11 @@ testdox: .clear rw
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
 test-analyze: .clear rw
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox-html=${BUILD}/testdox.html --coverage-html=${BUILD}/coverage ${TESTS}
+	@${PHPUNIT} -c ${TESTS}/phpunit.xml      \
+		--testdox-html=${BUILD}/testdox.html \
+		--coverage-html=${BUILD}/coverage    \
+		${TESTS} 1> /dev/null 2> /dev/null
+	@echo " - Test reports generated!"
 
 code-sniffer: .clear
 	@${PHPCS} --standard=${STANDARD} ${SRC}
@@ -94,11 +101,8 @@ phpdcd:
 phpdoc:
 
 documentup:
-	@echo Recompiling online documentation on ${DOCUMENTUP}
-	@curl -X GET ${DOCUMENTUP}/recompile > /dev/null 2> /dev/null
-	@echo "Done!"
-	
-docs:
+	@echo " - Recompiling online documentation on ${DOCUMENTUP}"
+	@curl -X GET ${DOCUMENTUP}/recompile 1> /dev/null 2> /dev/null
 
 .clear:
 	@clear
