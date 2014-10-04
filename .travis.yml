@@ -12,12 +12,10 @@ php:
   - hhvm
 
 before_script:
-  - composer selfupdate --quiet
-  - COMPOSER_PROCESS_TIMEOUT=10000 composer install
-  - ./vendor/bin/phing rw
+  - make install-dev
 
 script:
-  - ./vendor/bin/phing test -verbose
+  - make testdox
 
 matrix:
   allow_failures:
