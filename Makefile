@@ -9,7 +9,7 @@
 NAME          = "Tbs\\Log"
 CODE-STANDARD = "PSR2"
 DATE          = `date "+%Y-%m-%d"`
-BASEDIR       = `dirname .`
+BASEDIR       = `pwd`
 BIN           = "${BASEDIR}/bin"
 SRC           = "${BASEDIR}/src"
 DOCS          = "${BASEDIR}/docs"
@@ -72,12 +72,13 @@ lint:
 	@echo ""
 	
 test: .clear rw
-	@cd ${TESTS} ; ../${PHPUNIT}
+	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
 
 testdox: rw
-	@cd ${TESTS} ; ../${PHPUNIT} --testdox
+	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
-test-analyze:
+test-analyze: rw
+	@cd ${TESTS} ; ../${PHPUNIT} --testdox-html=${BUILD}/testdox.html --coverage-html=${BUILD}/coverage
 
 code-sniffer:
 
