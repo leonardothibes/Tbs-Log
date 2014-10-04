@@ -74,7 +74,8 @@ lint:
 test: .clear rw
 	@cd ${TESTS} ; ../${PHPUNIT}
 
-testdox:
+testdox: rw
+	@cd ${TESTS} ; ../${PHPUNIT} --testdox
 
 test-analyze:
 
