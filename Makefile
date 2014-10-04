@@ -50,6 +50,7 @@ clean-all:
 	fi; \
 
 install: .clear .composer
+	@php ${BIN}/composer.phar install
 
 lint:
 
