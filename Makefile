@@ -22,7 +22,7 @@ URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze phpdoc documentup
+build: .clear .title lint code-sniffer test-analyze phpmd phpdoc documentup
 	@echo ""
 	@echo " - BUILD SUCCESS!"
 	@echo ""
@@ -93,9 +93,7 @@ pdepend: rw .clear
 	@echo " - Software metrics generated"
 
 phpmd: rw .clear
-	@${BIN}/phpmd --suffixes php ${SRC} html                      \
-		cleancode,codesize,controversial,design,naming,unusedcode \
-		> ${BUILD}/pmd.html 2> /dev/null
+	@trap "${BIN}/phpmd --suffixes php ${SRC} html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/pmd.html" EXIT
 	@echo " - Mess detector report generated"
 
 phpcpd:
