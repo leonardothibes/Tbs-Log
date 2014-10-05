@@ -7,7 +7,7 @@
 
 # General Configuration
 NAME       = "Tbs\\Log"
-VERSION    = "1.0.0-beta1"
+VERSION    = "1.0.0-beta2"
 AUTHOR     = "Leonardo Thibes"
 STANDARD   = "PSR2"
 BASEDIR    = `pwd`
@@ -24,10 +24,18 @@ URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze phpmd phpcpd phpdcd phploc phpdoc documentup
+build: .clear .title .init lint code-sniffer test-analyze phpmd phpcpd phpdcd phploc phpdoc documentup
 	@echo ""
 	@echo " - BUILD SUCCESS!"
 	@echo ""
+
+.init:
+	@if [ ! -d ${VENDOR} ]; then \
+		echo 'Environment not initialized!'; \
+		echo 'Try "make install-dev" first!'; \
+		echo ''; \
+		exit 1; \
+	fi; \
 
 rw:
 	@[ -d ${BIN}     ] || mkdir ${BIN}
