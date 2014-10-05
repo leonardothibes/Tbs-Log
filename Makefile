@@ -92,7 +92,11 @@ pdepend: rw .clear
 	@${BIN}/pdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
 	@echo " - Software metrics generated"
 
-phpmd:
+phpmd: rw .clear
+	@${BIN}/phpmd --suffixes php ${SRC} html                      \
+		cleancode,codesize,controversial,design,naming,unusedcode \
+		> ${BUILD}/pmd.html 2> /dev/null
+	@echo " - Mess detector report generated"
 
 phpcpd:
 
