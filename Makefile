@@ -86,7 +86,7 @@ test-analyze: rw .clear
 
 code-sniffer: .clear
 	@${BIN}/phpcs --standard=${STANDARD} ${SRC}
-	@echo " - No code standsrds violation detected"
+	@echo " - No code standards violation detected"
 
 pdepend: rw .clear
 	@${BIN}/pdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
