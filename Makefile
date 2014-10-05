@@ -115,7 +115,7 @@ phploc:
 
 phpdoc: rw .clear .phpDocumentor
 	@php ${BIN}/phpDocumentor.phar -d ${SRC} -t ${BUILD}/apidoc 1> /dev/null 2> /dev/null
-	@echo " - API documentation generated"
+	@echo " - Code documentation generated"
 
 documentup:
 	@echo " - Recompiling online documentation on ${DOCUMENTUP}"
