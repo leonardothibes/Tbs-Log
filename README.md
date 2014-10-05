@@ -6,7 +6,7 @@ Amazing log component for PHP 5.3+
 Log Levels
 ----------
 
-Monolog supports the logging levels described by [PSR-3](http://www.php-fig.org/psr/psr-3).
+Tbs\Log supports the logging levels described by [PSR-3](http://www.php-fig.org/psr/psr-3).
 
 - **DEBUG** (100): Detailed debug information.
 
