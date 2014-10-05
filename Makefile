@@ -7,6 +7,8 @@
 
 # General Configuration
 NAME       = "Tbs\\Log"
+VERSION    = "1.0.0-beta1"
+AUTHOR     = "Leonardo Thibes"
 STANDARD   = "PSR2"
 DATE       = `date "+%Y-%m-%d"`
 BASEDIR    = `pwd`
@@ -125,10 +127,10 @@ documentup:
 	@clear
 
 .title:
-	@echo "Makefile - A courtesy of ${NAME}."
+	@echo "# ${NAME} ${VERSION} by ${AUTHOR}."
 	@echo ""
 
-help: .clear
+help: .clear .title
 	@echo "Usage: make [options]"
 	@echo ""
 	@echo "  build[default]     General project build"
