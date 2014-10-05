@@ -2,7 +2,7 @@
 #
 # A collection of reusable tasks for automating some process.
 #
-# Make sure you have GNU Make, and type `make` in this Makefile folder.
+# Make sure you have GNU Make and GNU curl, and then type "make" in this Makefile folder.
 #
 
 # General Configuration
