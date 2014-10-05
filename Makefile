@@ -96,7 +96,8 @@ phpmd: rw .clear
 	@trap "${BIN}/phpmd --suffixes php ${SRC} html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/pmd.html" EXIT
 	@echo " - Mess detector report generated"
 
-phpcpd:
+phpcpd: rw .clear
+	@trap "${BIN}/phpcpd --log-pmd=${BUILD}/phpcpd.xml ${SRC}" EXIT
 
 phpdcd:
 
