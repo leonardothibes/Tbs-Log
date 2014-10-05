@@ -22,7 +22,7 @@ URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze phpmd phpcpd phpdoc documentup
+build: .clear .title lint code-sniffer test-analyze phpmd phpcpd phpdcd phpdoc documentup
 	@echo ""
 	@echo " - BUILD SUCCESS!"
 	@echo ""
@@ -100,7 +100,9 @@ phpcpd: rw .clear
 	@trap "${BIN}/phpcpd --log-pmd=${BUILD}/phpcpd.xml ${SRC} > /dev/null" EXIT
 	@echo " - Duplicated lines report generated"
 
-phpdcd:
+phpdcd: rw .clear
+	@${BIN}/phpdcd ${SRC} > ${BUILD}/phpdcd.txt
+	@echo " - Dead code report generated"
 
 .phpDocumentor:
 	@[ -f ${BIN}/phpDocumentor.phar ] || curl http://phpdoc.org/phpDocumentor.phar -o ${BIN}/phpDocumentor.phar
