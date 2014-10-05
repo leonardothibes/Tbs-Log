@@ -20,6 +20,7 @@
         "phpunit/php-invoker"        : "*",
         "phpunit/phpunit-story"      : "*",
         "sebastian/diff"             : "*",
+        "phploc/phploc"              : "*",
         "pdepend/pdepend"            : ">=2.0@stable",
         "phpmd/phpmd"                : ">=2.1@stable",
         "sebastian/phpcpd"           : ">=2.0@stable",
