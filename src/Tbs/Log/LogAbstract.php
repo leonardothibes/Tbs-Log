@@ -150,7 +150,9 @@ abstract class LogAbstract implements LoggerInterface
     /**
      * Format message to long.
      *
-     * @param  string $message
+     * @param string $message
+     * @param string $level
+     *
      * @return string
      */
     protected function formatMessage($message, $level)
