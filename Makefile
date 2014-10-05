@@ -123,6 +123,8 @@ documentup:
 	@echo " - Recompiling online documentation on ${DOCUMENTUP}"
 	@curl -X GET ${DOCUMENTUP}/recompile 1> /dev/null 2> /dev/null
 
+version: .title
+
 .clear:
 	@clear
 
@@ -152,5 +154,6 @@ help: .clear .title
 	@echo "  phploc             Generate a measure project report"
 	@echo "  phpdoc             Generate API documentation"
 	@echo "  documentup         Update a project's website -> ${DOCUMENTUP}"
+	@echo "  version            Show the ${NAME} version number"
 	@echo "  help               Show this HELP message"
 	@echo ""
