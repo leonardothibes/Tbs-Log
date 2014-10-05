@@ -73,13 +73,13 @@ lint: .clear
 	done;
 	@echo " - No syntax errors detected"
 	
-test: .clear rw
+test: rw .clear
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
 
-testdox: .clear rw
+testdox: rw .clear
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
-test-analyze: .clear rw
+test-analyze: rw .clear
 	@${PHPUNIT} -c ${TESTS}/phpunit.xml      \
 		--testdox-html=${BUILD}/testdox.html \
 		--coverage-html=${BUILD}/coverage    \
@@ -90,8 +90,9 @@ code-sniffer: .clear
 	@${PHPCS} --standard=${STANDARD} ${SRC}
 	@echo " - No code standsrds violation detected"
 
-pdepend: .clear
-	@echo phpdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
+pdepend: rw .clear
+	@${BIN}/pdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
+	@echo " - Software metrics generated"
 
 phpmd:
 
@@ -105,7 +106,7 @@ phpdcd:
 
 phpdoc: rw .clear .phpDocumentor
 	@php ${BIN}/phpDocumentor.phar -d ${SRC} -t ${BUILD}/apidoc 1> /dev/null 2> /dev/null
-	@echo " - API documentation generated!"
+	@echo " - API documentation generated"
 
 documentup:
 	@echo " - Recompiling online documentation on ${DOCUMENTUP}"
