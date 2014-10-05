@@ -22,7 +22,7 @@ URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze phpmd phpcpd phpdcd phpdoc documentup
+build: .clear .title lint code-sniffer test-analyze phpmd phpcpd phpdcd phploc phpdoc documentup
 	@echo ""
 	@echo " - BUILD SUCCESS!"
 	@echo ""
@@ -104,6 +104,10 @@ phpcpd: rw .clear
 phpdcd: rw .clear
 	@${BIN}/phpdcd ${SRC} > ${BUILD}/phpdcd.txt
 	@echo " - Dead code report generated"
+
+phploc:
+	@${BIN}/phploc ${SRC} > ${BUILD}/phploc.txt
+	@echo " - Measure report generated"
 
 .phpDocumentor:
 	@[ -f ${BIN}/phpDocumentor.phar ] || curl http://phpdoc.org/phpDocumentor.phar -o ${BIN}/phpDocumentor.phar
