@@ -2,7 +2,7 @@
 #
 # A collection of reusable tasks for automating some process.
 #
-# Make sure you have GNU Make, and type `make` in this Makefile folder.
+# Make sure you have GNU Make and GNU curl, and then type "make" in this Makefile folder.
 #
 
 # General Configuration
@@ -18,18 +18,17 @@ TESTS      = "${BASEDIR}/tests"
 VENDOR     = "${BASEDIR}/vendor"
 LOGS       = "${BASEDIR}/logs"
 LOGFILE    = "${LOGS}/debug_${DATE}.log"
-PHPUNIT    = "${BIN}/phpunit"
-PHPCS      = "${BIN}/phpcs"
 URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
 
-build: .clear .title lint code-sniffer test-analyze phpdoc documentup
+build: .clear .title lint code-sniffer test-analyze phpmd phpcpd phpdcd phpdoc documentup
 	@echo ""
 	@echo " - BUILD SUCCESS!"
 	@echo ""
 
 rw:
+	@[ -d ${BIN}     ] || mkdir ${BIN}
 	@[ -d ${BUILD}   ] || mkdir ${BUILD}
 	@[ -d ${LOGS}    ] || mkdir ${LOGS}
 	@[ -f ${LOGFILE} ] || > ${LOGFILE}
@@ -47,16 +46,15 @@ clean-all:
 	@rm -Rf ${LOGS}
 	@rm -Rf ${BIN}
 
-.composer:
-	@[ -d ${BIN} ] || mkdir ${BIN}
+.composer: rw
 	@if [ ! -f ${BIN}/composer.phar ]; then \
 		curl -sS https://getcomposer.org/installer | php -- --install-dir=${BIN}; \
 	fi; \
 
-install: .clear .composer
+install: rw .clear .composer
 	@php ${BIN}/composer.phar install --no-dev
 
-install-dev: rw .clear .composer .phpDocumentor
+install-dev: rw .clear .phpDocumentor .composer
 	@php ${BIN}/composer.phar install --dev
 
 classmap:
@@ -73,31 +71,38 @@ lint: .clear
 	done;
 	@echo " - No syntax errors detected"
 	
-test: .clear rw
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
+test: rw .clear
+	@${BIN}/phpunit -c ${TESTS}/phpunit.xml ${TESTS}
 
-testdox: .clear rw
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
+testdox: rw .clear
+	@${BIN}/phpunit -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
-test-analyze: .clear rw
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml      \
+test-analyze: rw .clear
+	@${BIN}/phpunit -c ${TESTS}/phpunit.xml  \
 		--testdox-html=${BUILD}/testdox.html \
 		--coverage-html=${BUILD}/coverage    \
 		${TESTS} 1> /dev/null 2> /dev/null
 	@echo " - Test reports generated!"
 
 code-sniffer: .clear
-	@${PHPCS} --standard=${STANDARD} ${SRC}
-	@echo " - No code standsrds violation detected"
+	@${BIN}/phpcs --standard=${STANDARD} ${SRC}
+	@echo " - No code standards violation detected"
 
-pdepend: .clear
-	@echo phpdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
+pdepend: rw .clear
+	@${BIN}/pdepend --jdepend-chart=${BUILD}/pdepend/dependencies.svg --overview-pyramid=${BUILD}/pdepend/overview-pyramid.svg ${SRC}
+	@echo " - Software metrics generated"
 
-phpmd:
+phpmd: rw .clear
+	@trap "${BIN}/phpmd --suffixes php ${SRC} html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/pmd.html" EXIT
+	@echo " - Mess detector report generated"
 
-phpcpd:
+phpcpd: rw .clear
+	@trap "${BIN}/phpcpd --log-pmd=${BUILD}/phpcpd.xml ${SRC} > /dev/null" EXIT
+	@echo " - Duplicated lines report generated"
 
-phpdcd:
+phpdcd: rw .clear
+	@${BIN}/phpdcd ${SRC} > ${BUILD}/phpdcd.txt
+	@echo " - Dead code report generated"
 
 .phpDocumentor:
 	@[ -f ${BIN}/phpDocumentor.phar ] || curl http://phpdoc.org/phpDocumentor.phar -o ${BIN}/phpDocumentor.phar
@@ -105,7 +110,7 @@ phpdcd:
 
 phpdoc: rw .clear .phpDocumentor
 	@php ${BIN}/phpDocumentor.phar -d ${SRC} -t ${BUILD}/apidoc 1> /dev/null 2> /dev/null
-	@echo " - API documentation generated!"
+	@echo " - API documentation generated"
 
 documentup:
 	@echo " - Recompiling online documentation on ${DOCUMENTUP}"
