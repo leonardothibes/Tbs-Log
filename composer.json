@@ -1,9 +1,9 @@
 {
     "name"       : "tbs/log",
-    "type"       : "library",
     "description": "Amazing log component for PHP 5.3+",
-    "keywords"   : ["tbs","log"],
     "homepage"   : "http://documentup.com/leonardothibes/Tbs-Log",
+    "keywords"   : ["tbs","log"],
+    "type"       : "library",
     "license"    : "MIT",
     "authors": [
         {
