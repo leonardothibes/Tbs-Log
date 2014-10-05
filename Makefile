@@ -109,7 +109,7 @@ phpdcd: rw .clear
 
 phploc:
 	@${BIN}/phploc ${SRC} > ${BUILD}/phploc.txt
-	@echo " - Measure report generated"
+	@echo " - Measure project report generated"
 
 .phpDocumentor:
 	@[ -f ${BIN}/phpDocumentor.phar ] || curl http://phpdoc.org/phpDocumentor.phar -o ${BIN}/phpDocumentor.phar
@@ -149,6 +149,7 @@ help: .clear .title
 	@echo "  phpmd              Generate a mess detector report"
 	@echo "  phpcpd             Generate a copy-paste report"
 	@echo "  phpdcd             Generate a dead code report"
+	@echo "  phploc             Generate a measure project report"
 	@echo "  phpdoc             Generate API documentation"
 	@echo "  documentup         Update a project's website -> ${DOCUMENTUP}"
 	@echo "  help               Show this HELP message"
