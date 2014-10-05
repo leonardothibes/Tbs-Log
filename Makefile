@@ -18,8 +18,6 @@ TESTS      = "${BASEDIR}/tests"
 VENDOR     = "${BASEDIR}/vendor"
 LOGS       = "${BASEDIR}/logs"
 LOGFILE    = "${LOGS}/debug_${DATE}.log"
-PHPUNIT    = "${BIN}/phpunit"
-PHPCS      = "${BIN}/phpcs"
 URI        = "leonardothibes/Tbs-Log"
 DOCUMENTUP = "http://documentup.com/${URI}"
 GITHUB     = "http://github.com/${URI}"
@@ -74,20 +72,20 @@ lint: .clear
 	@echo " - No syntax errors detected"
 	
 test: rw .clear
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml ${TESTS}
+	@${BIN}/phpunit -c ${TESTS}/phpunit.xml ${TESTS}
 
 testdox: rw .clear
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml --testdox ${TESTS}
+	@${BIN}/phpunit -c ${TESTS}/phpunit.xml --testdox ${TESTS}
 
 test-analyze: rw .clear
-	@${PHPUNIT} -c ${TESTS}/phpunit.xml      \
+	@${BIN}/phpunit -c ${TESTS}/phpunit.xml  \
 		--testdox-html=${BUILD}/testdox.html \
 		--coverage-html=${BUILD}/coverage    \
 		${TESTS} 1> /dev/null 2> /dev/null
 	@echo " - Test reports generated!"
 
 code-sniffer: .clear
-	@${PHPCS} --standard=${STANDARD} ${SRC}
+	@${BIN}/phpcs --standard=${STANDARD} ${SRC}
 	@echo " - No code standsrds violation detected"
 
 pdepend: rw .clear
