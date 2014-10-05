@@ -45,6 +45,7 @@ clean-all:
 	@rm -Rf ${BUILD}
 	@rm -Rf ${LOGS}
 	@rm -Rf ${BIN}
+	@rm -f composer.lock
 
 .composer: rw
 	@if [ ! -f ${BIN}/composer.phar ]; then \
